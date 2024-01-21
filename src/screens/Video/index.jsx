@@ -1,6 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {Image, Text, TouchableWithoutFeedback, View} from 'react-native';
+// import 'shaka-player/dist/controls.css';
 import Video from 'react-native-video';
 import vd from '../../assets/Video/vediotest.mp4';
 import PlayIcon from '../../assets/icons/playIcon.png';
@@ -16,8 +17,7 @@ const PlayerScreen = ({route, navigation}) => {
   const {params} = useRoute();
   const {goBack} = useNavigation();
   const loading = false;
-  const url =
-    'https://www.youtube.com/watch?v=8CdcCD5V-d8&list=RDC3GouGa0noM&index=10';
+  const url = 'vd';
   const videoError = data => {
     console.log(data);
   };
@@ -67,22 +67,31 @@ const PlayerScreen = ({route, navigation}) => {
     },
   ];
   const [controlsVisible, setControlsVisible] = useState(true);
-  const [swimLineVisible, setSwimLineVisible] = useState(true);
   const timerRef = useRef();
+  const controllerRef = useRef(null);
 
+  // useEffect(() => {
+  //   const {
+  //     /** @type {shaka.Player} */ player,
+  //     /** @type {HTMLVideoElement} */ videoElement,
+  //   } = controllerRef.current;
+
+  //   async function loadAsset() {
+  //     await player.load(vd);
+  //     videoElement.play();
+  //   }
+
+  //   loadAsset();
+  // }, [url]);
   const hideControls = useCallback(() => {
     setControlsVisible(false);
-    // setSwimLineVisible(false);
   }, []);
 
   const resetTimer = useCallback(() => {
     setControlsVisible(true);
-    // setSwimLineVisible(true);
-
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-
     timerRef.current = setTimeout(() => {
       hideControls();
     }, 3000);
@@ -90,7 +99,6 @@ const PlayerScreen = ({route, navigation}) => {
 
   useEffect(() => {
     resetTimer();
-
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -128,8 +136,10 @@ const PlayerScreen = ({route, navigation}) => {
           )}
           {!!url && (
             <Video
-              style={styles.video}
-              source={vd}
+              source={vd} // Can be a URL or a local file.
+              // ref={controllerRef}
+              onBuffer={onBuffer} // Callback when remote video is buffering
+              onError={videoError}
               controls
               resizeMode="cover"
             />

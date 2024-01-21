@@ -1,8 +1,8 @@
 import {StyleSheet} from 'react-native';
 import {PADDING, size} from '../../styles';
 
-const styles = StyleSheet.create({
-  container: {
+const CreateStyles = ({hasFocus}) => {
+  const container = {
     flex: 1,
     marginTop: size(18),
     justifyContent: 'center',
@@ -12,13 +12,23 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     left: 0,
-    zIndex: 1000,
-  },
-  flatList: {
-    paddingHorizontal: PADDING.HORIZONTAL,
+  };
+  const flatList = {
+    // paddingHorizontal: PADDING.HORIZONTAL,
     marginHorizontal: -size(2),
     marginVertical: size(8),
-  },
-});
+  };
+  const card = {
+    flex: 1,
+  };
 
-export default styles;
+  if (hasFocus) {
+  }
+  return StyleSheet.create({
+    container,
+    flatList,
+    card,
+  });
+};
+
+export default CreateStyles;

@@ -1,10 +1,17 @@
 import React, {memo, useState} from 'react';
-import {Image, ImageBackground, Text, TextInput, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import Bg from '../../assets/images/dazn.png';
 import logo from '../../assets/logo/logo.png';
-import {Touchable, useTouchable} from '../../components/Touchable';
+import {useTouchable} from '../../components/Touchable';
 import useComputedStyles from '../../hooks/useComputedStyles';
 import createStyles from './styles';
 const Login = () => {
@@ -25,19 +32,27 @@ const Login = () => {
           <Image source={logo} style={styles.logo} />
           <View style={styles.inputForm}>
             <Text style={styles.label}>Access code</Text>
-
-            <TextInput
-              value={accessCode}
-              onChangeText={text => setAccessCode(text)}
-              placeholder="Enter Access Code"
-              placeholderTextColor="#FFFFFF"
-              style={[styles.input, styles.touchableTextInput]}
-            />
-
+            <TouchableOpacity activeOpacity={0.7}>
+              {/* <TextInput
+                onChange={text => setAccessCode(text)}
+                placeholder="Enter Access Code"
+                placeholderTextColor="#FFFFFF"
+                style={styles.input}
+              /> */}
+              <TextInput
+                onChange={e => setAccessCode(e.target.value)}
+                placeholder="Enter Access Code"
+                placeholderTextColor={'#FFFFFF'}
+                style={styles.input}
+              />
+            </TouchableOpacity>
             <Text style={styles.label}>{test}</Text>
-            <Touchable style={styles.button} onPress={handleLogin}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleLogin}
+              activeOpacity={0.7}>
               <Text style={styles.buttonText}>Login</Text>
-            </Touchable>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

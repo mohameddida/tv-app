@@ -5,6 +5,7 @@ import {
   ImageBackground,
   Platform,
   StyleSheet,
+  TVFocusGuideView,
   Text,
   View,
 } from 'react-native';
@@ -68,49 +69,51 @@ const EventsScreen = ({route, navigation}) => {
   };
   const [isFocused, setIsFocused] = useState(false);
 
-  const id = route.params?.id ?? 'defaultId';
-  const title = route.params?.title ?? 'default Title';
+  const id = route.params?.idEvent ?? 'defaultId';
+  const title = route.params?.name ?? 'default Title';
   //   const details = data.filter(item => item.id === route?.params?.id);
   return (
-    <ImageBackground source={MainImage} style={styles.container}>
-      <LinearGradient
-        colors={['#062A60', 'rgba(63, 59, 89, 0)']}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 1}}
-        style={styles.linearGradient}>
-        <MenuBar />
-        <View style={styles.content}>
-          <View style={styles.textZone}>
-            <Text style={styles.title}>TITOLO EVENTO</Text>
-            <Text style={styles.titleSub}>SOTTO TITOLO EVENTO</Text>
-            <Text style={styles.text}>
-              consectetur adipiscing elit. Diam quis maecenas fermentum mattis
-              eget lacus. Turpis urna nunc odio vel. Pharetra scelerisque
-              turpis.
-            </Text>
-            <Touchable
-              style={isFocused ? styles.button : styles.buttonActif}
-              onBlur={() => setIsFocused(true)}
-              onFocus={() => setIsFocused(false)}
-              onPress={() => navigation.navigate('Player', {id})}>
-              <Image source={Play} style={styles.icon} />
-              <Text style={styles.buttonText}>Watch now</Text>
-            </Touchable>
-            <View style={styles.location}>
-              <Text style={styles.packageName}>Dazn web {id}</Text>
-              <Text style={styles.titleofpackage}>{title}</Text>
+    <TVFocusGuideView style={styles.container} autoFocus>
+      <ImageBackground source={MainImage} style={styles.container}>
+        <LinearGradient
+          colors={['#062A60', 'rgba(63, 59, 89, 0)']}
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 1}}
+          style={styles.linearGradient}>
+          <MenuBar />
+          <View style={styles.content}>
+            <View style={styles.textZone}>
+              <Text style={styles.title}>TITOLO EVENTO</Text>
+              <Text style={styles.titleSub}>SOTTO TITOLO EVENTO</Text>
+              <Text style={styles.text}>
+                consectetur adipiscing elit. Diam quis maecenas fermentum mattis
+                eget lacus. Turpis urna nunc odio vel. Pharetra scelerisque
+                turpis.
+              </Text>
+              <Touchable
+                style={isFocused ? styles.button : styles.buttonActif}
+                onBlur={() => setIsFocused(true)}
+                onFocus={() => setIsFocused(false)}
+                onPress={() => navigation.navigate('Player', {id})}>
+                <Image source={Play} style={styles.icon} />
+                <Text style={styles.buttonText}>Watch now</Text>
+              </Touchable>
+              <View style={styles.location}>
+                <Text style={styles.packageName}>Dazn web {id}</Text>
+                <Text style={styles.titleofpackage}>{title}</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.listNav}>
-          <EventSwimLine
-            navigation={navigation}
-            data={data}
-            onPressItem={handleItemPress}
-          />
-        </View>
-      </LinearGradient>
-    </ImageBackground>
+          <View style={styles.listNav}>
+            <EventSwimLine
+              navigation={navigation}
+              data={data}
+              onPressItem={handleItemPress}
+            />
+          </View>
+        </LinearGradient>
+      </ImageBackground>
+    </TVFocusGuideView>
   );
 };
 

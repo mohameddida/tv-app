@@ -1,11 +1,15 @@
-import React from 'react';
-import {ImageBackground, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  ImageBackground,
+  StyleSheet,
+  TVFocusGuideView,
+  View,
+} from 'react-native';
 // import Play from '../assets/icons/playIcon.png';
 import MainPage from '../../assets/images/formula.png';
 // import EventFlatList from '../components/EventFlatList';
 // import MenuBar from '../components/MenuBar';
 import {Text} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import iconOne from '../../assets/images/dazn031.png';
 import iconTwo from '../../assets/images/dazn032.png';
 import iconThree from '../../assets/images/dazn033.png';
@@ -14,6 +18,12 @@ import iconFive from '../../assets/images/dazn035.png';
 import MenuBar from '../../components/Menu';
 import PackageSwimLine from '../Packages';
 const Home = ({route, navigation}) => {
+  const handleItemPress = item => {
+    navigation.navigate(item.route, {id: item.id});
+  };
+  const idPack = route?.params?.idPack ?? 'default value';
+  // const idPackage = useRef(idPack);
+  const [details, setDetails] = useState();
   const data = [
     {
       id: 1,
@@ -56,28 +66,32 @@ const Home = ({route, navigation}) => {
       navigation: 'EventsDetails',
     },
   ];
-  const handleItemPress = item => {
-    navigation.navigate(item.route, {id: item.id});
+  const showData = () => {
+    setDetails(data.filter(item => item.id === idPack));
   };
+  // useEffect(() => {
+  //   showData();
+  // }, []);
 
-  const details = data.filter(item => item.id === route?.params?.id);
   return (
-    <ImageBackground source={MainPage} style={styles.container}>
-      <MenuBar />
-      <View style={styles.content}>
-        <View style={styles.textZone}>
-          <Text style={styles.title}> {details[0]?.title}</Text>
-          <Text style={styles.text}> {details[0]?.desc} </Text>
+    <TVFocusGuideView style={styles.container}>
+      <ImageBackground source={MainPage} style={styles.container}>
+        <MenuBar />
+        <View style={styles.content}>
+          <View style={styles.textZone}>
+            <Text style={styles.title}> {idPack}</Text>
+            <Text style={styles.text}> {details?.desc} </Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.listNav}>
-        <PackageSwimLine
-          navigation={navigation}
-          data={data}
-          onPressItem={handleItemPress}
-        />
-      </View>
-    </ImageBackground>
+        <View style={styles.listNav}>
+          <PackageSwimLine
+            navigation={navigation}
+            data={data}
+            onPressItem={handleItemPress}
+          />
+        </View>
+      </ImageBackground>
+    </TVFocusGuideView>
   );
 };
 

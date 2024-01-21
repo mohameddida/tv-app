@@ -8,7 +8,7 @@ import Player from '../screens/Video';
 import Login from '../screens/auth/Login';
 const Stack = createNativeStackNavigator();
 
-const Navigation = () => {
+const Navigations = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -81,4 +81,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default Navigations;

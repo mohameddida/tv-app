@@ -27,8 +27,8 @@ export const Touchable = React.forwardRef(
         {...props}
         onFocus={onFocusProxy}
         onBlur={onBlurProxy}
-        activeOpacity={props.activeOpacity || (Platform.isTV ? 1 : 0.7)}
-        tvParallaxProperties={{enabled: false}}
+        activeOpacity={props.activeOpacity || (Platform.isTV ? 1 : 0.5)}
+        tvParallaxProperties={{enabled: true}}
         ref={ref}>
         <TouchableContextProvider hasFocus={hasFocus}>
           {children}

@@ -3,7 +3,7 @@ import ms from 'ms';
 import React, {useEffect, useState} from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import {withSafeAreaContext} from './src/Configuration';
-import {Navigation} from './src/navigation';
+import {Navigations} from './src/navigation';
 import Splash from './src/screens/Splash';
 
 // if (Config.DISABLE_YELLOW_BOX === 'true') {
@@ -38,8 +38,11 @@ const App = () => {
               background: styles.container,
             },
           }}>
-          {!isReady ? <Splash /> : <Navigation />}
+          {!isReady ? <Splash /> : <Navigations />}
         </NavigationContainer>
+        {/* <TouchableOpacity style={{backgroundColor: 'white'}}>
+          <Text>test</Text>
+        </TouchableOpacity> */}
       </View>
     </>
   );

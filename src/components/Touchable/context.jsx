@@ -1,6 +1,6 @@
 import React, {createContext} from 'react';
 
-export const TouchableContext = createContext({hasFocus: false});
+export const TouchableContext = createContext({hasFocus: true});
 
 export const TouchableContextProvider = props => {
   const {children, hasFocus} = props;

@@ -4,7 +4,9 @@ import {
   Dimensions,
   Image,
   StyleSheet,
+  TVFocusGuideView,
   Text,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -14,7 +16,6 @@ import ILogout from '../../assets/icons/logout_icon.png';
 import INotification from '../../assets/icons/notification_icon.png';
 import IPackage from '../../assets/icons/package_icon.png';
 import logo from '../../assets/logo/logo.png';
-import {Touchable} from '../Touchable';
 import DiscountBar from './DiscountBar';
 import NotificationList from './Notification';
 const MenuBar = () => {
@@ -49,17 +50,18 @@ const MenuBar = () => {
   };
   return (
     <TouchableWithoutFeedback onPress={hideAll}>
-      <View style={styles.container}>
+      <TVFocusGuideView autoFocus style={styles.container}>
         <LinearGradient
           colors={['#062A60', 'rgba(63, 59, 89, 0)']}
           start={{x: 0, y: 0}}
           end={{x: 0, y: 1}}
           style={styles.linearGradient}>
           <View style={styles.sideContainer}>
-            <Touchable
+            <TouchableOpacity
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               onPress={() => handlePress('packages')}
+              activeOpacity={1}
               style={[
                 styles.btnMenu,
                 isActive('packages'),
@@ -67,11 +69,12 @@ const MenuBar = () => {
               ]}>
               <Image source={IPackage} style={styles.icon} />
               <Text style={styles.textNav}>Packages</Text>
-            </Touchable>
-            <Touchable
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={toggleDiscount}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
+              activeOpacity={0.6}
               style={[
                 styles.btnMenu,
                 isActive('Discount'),
@@ -79,26 +82,28 @@ const MenuBar = () => {
               ]}>
               <Image source={IDiscount} style={styles.icon} />
               <Text style={styles.textNav}>Discount zone</Text>
-            </Touchable>
+            </TouchableOpacity>
           </View>
 
           <Image source={logo} style={styles.logo} />
 
           <View style={styles.sideContainer}>
-            <Touchable
+            <TouchableOpacity
               onPress={toggleNotifications}
               onFocus={() => setIsFocused(true)}
+              activeOpacity={0.6}
               onBlur={() => setIsFocused(false)}
               style={styles.btnMenu}>
               <Image source={INotification} style={styles.icon} />
-            </Touchable>
-            <Touchable
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() => handlePress('login')}
               onFocus={() => setIsFocused(true)}
+              activeOpacity={0.6}
               onBlur={() => setIsFocused(false)}
               style={styles.btnMenu}>
               <Image source={ILogout} style={styles.icon} />
-            </Touchable>
+            </TouchableOpacity>
           </View>
         </LinearGradient>
 
@@ -112,7 +117,7 @@ const MenuBar = () => {
         {showDiscount && (
           <DiscountBar style={styles.DiscountList} onClose={toggleDiscount} />
         )}
-      </View>
+      </TVFocusGuideView>
     </TouchableWithoutFeedback>
   );
 };
@@ -126,7 +131,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     position: 'absolute',
-    zIndex: 100,
+    // zIndex: 100,
     top: 0,
     left: 0,
     right: 0,
@@ -169,7 +174,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   activeButton: {
-    borderWidth: 2,
+    borderBottomWidth: 2,
     borderBottomColor: 'blue',
     color: 'gray',
   },
